@@ -9,6 +9,7 @@ import Pokemon from './pages/InfiniteScroll'
 import PokemonId from './pages/PokemonId'
 import Pagination from './pages/Pagination'
 import InfiniteQuery from './pages/InfiniteQuery'
+import Todo from './pages/Todo'
 function App() {
    
 
@@ -26,6 +27,7 @@ function App() {
         <Route path='/pokemon/:id' element={<PokemonId></PokemonId>}></Route>
           
       </Route>
+      <Route path='/todo' element={<Todo/>}></Route>
       
     </Routes>
 

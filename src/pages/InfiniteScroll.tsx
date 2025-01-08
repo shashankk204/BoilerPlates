@@ -8,6 +8,9 @@ import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";
 
 async function fetchfn({pageParam}:{pageParam:number}) {
+  // await new Promise((res)=>{
+  //   setTimeout(()=>{res(100)},5000)
+  // })
   const data = await axios.get<PokemonResponse>(
     `https://pokeapi.co/api/v2/pokemon?offset=${pageParam * 20}&limit=20`
   );
@@ -17,7 +20,7 @@ async function fetchfn({pageParam}:{pageParam:number}) {
 
 function Pokemon() {
   const { ref, inView } = useInView();
-  const {data,isLoading,isError,error,fetchNextPage,hasNextPage}=useInfiniteQuery({
+  const {data,isLoading,isError,error,fetchNextPage,hasNextPage,isFetchingNextPage}=useInfiniteQuery({
     // @ts-ignore
     initialData:null,
     queryKey:['pokemon'],
@@ -65,6 +68,9 @@ function Pokemon() {
         }
 
       </div>
+      {(isFetchingNextPage)?<div className="text-center text-3xl font-bold">
+        {"loading....."}
+      </div>:<></>}
       <div ref={ref}></div>
     </div>
   </div>

@@ -18,6 +18,7 @@ function Fetch() {
   }
   // fetchpokeon();
   const { data, isLoading, isError, error, isFetching } = useQuery({
+    initialData:null,
     queryKey: ["pokemon"],
     queryFn: fetchpokeon,
     // staleTime:3000, //for the first time fetch will be called and then after futher request for 3sec cached data will be displayed and after the value will be revalidated 
@@ -27,18 +28,19 @@ function Fetch() {
 
   //data is first fetched from the cache then a background fetch will occur
 
-  if (isLoading) return <div> loading</div>
+  
+
+  if (isLoading || !data) return <div> loading</div>
 
   if (isError) return <div>{error.message}</div>
-
   return (
     <div>
       <div className='grid grid-cols-4 gap-y-24'>
         {data?.map(({ name, url }) => {
           return (
-            <Link to={`/pokemon/${getid(url)}`}>
+            <Link to={`/pokemon/${getid(url)}`} key={url}>
 
-              <div className='  flex flex-col m-3  h-full'>
+              <div className='  flex flex-col m-3  h-full' key={url}>
 
                 <div className='flex justify-center items-center h-full bg-slate-100'>
                   <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${getid(url)}.svg`} alt="" className="max-h-auto" />

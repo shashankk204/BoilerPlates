@@ -17,7 +17,9 @@ async function fetchfn({ pageParam }: { pageParam: number }) {
 
 function InfiniteQuery() {
   const { data, isLoading, isError, error, fetchNextPage, hasNextPage } = useInfiniteQuery({
-    queryKey: ['pokemon'],
+    // @ts-ignore
+    initialData:null,
+    queryKey: ['pokemonInfini'],
     queryFn: fetchfn,
     initialPageParam: 0,
     getNextPageParam: (_lastpage, _allpage, page) => {
